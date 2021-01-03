@@ -15,6 +15,7 @@ public class SportExplanationActivity extends AppCompatActivity {
     private TextView sportExplanation;
     private ConstraintLayout constLayout_2;
     private int position;
+    private Sport sport;
     private final String LOG_TAG = "SportExplanation";
 
     @Override
@@ -27,19 +28,14 @@ public class SportExplanationActivity extends AppCompatActivity {
         sportExplanation = findViewById(R.id.sport_explanation);
 
         Intent intent = getIntent();
-        position = intent.getIntExtra("Extra_position", -1);
+        sport = (Sport) intent.getSerializableExtra("Extra_sport");
 
-        if(position == -1){
-            Log.d(LOG_TAG, "Invalid position or NO Position");
-        }else{
-            String[] sportTitle = getResources().getStringArray(R.array.sport_title);
-            String[] sportExplanations = getResources().getStringArray(R.array.sport_explanation);
-            String[] sportImageName = getResources().getStringArray(R.array.sport_image_name);
-
-            sportTitle_2.setText(sportTitle[position]);
-            sportExplanation.setText(sportExplanations[position]);
-            int imageId = getResources().getIdentifier(sportImageName[position],"drawable",getPackageName());
-            sportImage_2.setImageResource(imageId);
+            try {
+                sportTitle_2.setText(sport.sportTitle);
+                sportExplanation.setText(sport.sportExplanation);
+                sportImage_2.setImageResource(sport.sportImageId);
+            }catch (Exception e) {
+                Log.d(LOG_TAG, "Invalid sport or NO sport retreived from Main Activity");
         }
     }
 }

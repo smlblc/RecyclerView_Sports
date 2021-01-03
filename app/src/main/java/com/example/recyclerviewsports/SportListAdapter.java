@@ -13,10 +13,10 @@ public class SportListAdapter extends RecyclerView.Adapter<SportViewHolder> {
 
     private ArrayList<Sport> sportList = new ArrayList<>();
     //private MyOnClickSportAction myListenerAction;
-    private View.OnClickListener listener;
+    private MyOnClickSportAction listener;
 
 
-    public SportListAdapter(ArrayList<Sport> sportList, View.OnClickListener listener) {  // , MyOnClickSportAction myListenerAction
+    public SportListAdapter(ArrayList<Sport> sportList, MyOnClickSportAction listener) {
         this.sportList = sportList;
         //this.myListenerAction = myListenerAction;
         this.listener = listener;
@@ -41,8 +41,9 @@ public class SportListAdapter extends RecyclerView.Adapter<SportViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listener.perform(sportList.get(position));
                 //myListenerAction.onClick(position);
-                listener.onClick(v);
+                //listener.onClick(v);
             }
         });
 

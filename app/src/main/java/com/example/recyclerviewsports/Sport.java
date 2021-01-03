@@ -1,6 +1,8 @@
 package com.example.recyclerviewsports;
 
-public class Sport {
+import java.io.Serializable;
+
+public class Sport implements Serializable {
 
     public String sportTitle;
     public String sportInfo;

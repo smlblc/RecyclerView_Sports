@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -24,19 +25,19 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         populateSportList();
 
-//        MyOnClickSportAction myListenerAction = new MyOnClickSportAction() {
-//            @Override
-//            public void onClick(int position) {
-//                onClickSport(position);
-//            }
-//        };
-
-        View.OnClickListener listener = new View.OnClickListener() {
+        MyOnClickSportAction listener = new MyOnClickSportAction() {  //myListenerAction
             @Override
-            public void onClick(View v) {
-                onClickSport(v);
+            public void perform(Sport sport) {
+                onClickSport(sport);
             }
         };
+
+//        View.OnClickListener listener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickSport(v);
+//            }
+//        };
 
         SportListAdapter adapter = new SportListAdapter(sportList, listener );  //myListenerAction
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -51,9 +52,10 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
 //    }
 
-    public void onClickSport(View v) {
+    public void onClickSport(Sport sport) {
         Intent intent = new Intent(this, SportExplanationActivity.class);
-        intent.putExtra("Extra_position", recyclerView.getChildAdapterPosition(v));
+        Bundle bundle = new Bundle();
+        intent.putExtra("Extra_sport", sport);
         startActivity(intent);
     }
 
